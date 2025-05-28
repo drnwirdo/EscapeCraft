@@ -23,10 +23,15 @@
 - About the team 👩🏻‍🎓🧑🏻‍🎓🧑🏻‍🎓🧑🏻‍🎓🧑🏻‍🎓🧑🏻‍🎓🧑🏻‍🏫🧑🏻‍🏫
   - We are students from THUMT & THUNLP (Tsinghua University) and Fudan University, and we work part-time on this project. (This is why it took so long to release this project.😣)
   - As experienced escape game players, we are curious about how MLLMs would perform in such an environment.
-  - We are currently planning a second version. If you are insterested in our project, feel free to contact us. ([✉️email](mailto:w.ziyue1010@gmail.com))
+  - We are currently planning a second version. **If you are insterested in our project, feel free to contact us.** ([✉️email](mailto:w.ziyue1010@gmail.com))
   
     ☀️ We live to enjoy life, not just to work.
  
+## 📢Timeline
+1. (TODO: We will soom update code for multi-room setting)
+2. [27-May-2025] Update a new version of our paper that includes more discussion of the intermediate process
+3. [13-Mar-2025] Repo and paper released 
+
 ## Example of a successful escape
 <p align="center">
 <img src="./figures/example.png" alt="Image">
