@@ -8,7 +8,6 @@
   <a href="https://thunlp-mt.github.io/EscapeCraft/">
     <img src="https://img.shields.io/badge/Homepage-Website-blue" alt="Homepage">
   </a>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=THUNLP-MT/EscapeCraft" alt="visitors">
 </p>
 
 
