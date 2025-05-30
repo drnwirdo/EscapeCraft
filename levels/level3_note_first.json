@@ -1,19 +1,19 @@
 {
     "room": {
         "exit": {
-            "type": "password",
-            "unlock_item_id": "password_1"
+            "type": "key",
+            "unlock_item_id": "key_1"
         },
         "items": [
             {
                 "id": "box_1",
                 "type": "box",
                 "unlock_method": {
-                    "type": "key",
-                    "id": "key_1"
+                    "type": "password",
+                    "id": "password_1"
                 },
                 "contents": [
-                    "note_1",
+                    "key_1",
                     "note_2"
                 ],
                 "show": true
@@ -22,13 +22,13 @@
                 "id": "key_1",
                 "type": "key",
                 "use": "box_1",
-                "show": true
+                "show": false
             },
             {
                 "id": "note_1",
                 "type": "paper",
                 "contents": ["password_1"],
-                "show": false
+                "show": true
             },
             {
                 "id": "note_2",
