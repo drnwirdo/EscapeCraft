@@ -29,8 +29,9 @@
  
 ## 📢Timeline
 1. (TODO: We will soom update code for multi-room setting)
-2. [27-May-2025] Update a new version of our paper that includes more discussion of the intermediate process
-3. [13-Mar-2025] Repo and paper released 
+2. [26-Jun-2025] Accepted by ICCV 2025!
+3. [27-May-2025] Update a new version of our paper that includes more discussion of the intermediate process
+4. [13-Mar-2025] Repo and paper released 
 
 ## Example of a successful escape
 <p align="center">
