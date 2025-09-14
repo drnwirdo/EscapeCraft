@@ -9,3 +9,5 @@ last_scene.json
 *.pyd
 *.log
 .DS_Store
+
+src/config.py
