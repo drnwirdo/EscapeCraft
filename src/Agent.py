@@ -264,6 +264,14 @@ class AgentPlayer:
                         messages=message,
                         temperature=0,
                     )
+
+                # Logs token usage
+                if hasattr(completion, "usage") and completion.usage:
+                    prompt_tokens = completion.usage.prompt_tokens
+                    completion_tokens = completion.usage.completion_tokens
+                    total_tokens = completion.usage.total_tokens
+                    logger.info(f"[Token Usage] Prompt: {prompt_tokens}, Completion: {completion_tokens}, Total: {total_tokens}")
+                
                 logger.debug("Got answer from agent!")
                 return completion.choices[0].message.content
             except Exception as e:

@@ -1,0 +1,102 @@
+[
+    {
+        "step": 0,
+        "desc": "The initial scene is shown in the picture. You did not interact with any objects in the last step.\n===\nThe items in your bag usable include:\nNothing in your bag.\n===\nPlease determine the next action(s) that could help you observe the room or obtain useful tools or clues.\nIf you find yourself stuck in a corner, try turn around by passing rotate_right.\nYou need to return data in the following format of JSON_string to interact with the scene and don't say anything else: \n{\n    \"move_forward\": float,\n    \"rotate_right\": float,\n    \"rotate_down\": float,\n    \"jump\": bool,\n    \"look_at\": list[x: float, y: float],\n    \"grab\": bool,\n    \"interactions\": {\n        \"use_item_id\": str,\n        \"input\": str\n    },\n    \"read\": str,\n    \"rationale\": str\n}\n",
+        "save_path": "./game_cache\\level1-1\\gpt-4o-mini_t_4\\0.png",
+        "response": {
+            "move_forward": 2.0,
+            "rotate_right": 0.0,
+            "rotate_down": 0.0,
+            "jump": false,
+            "look_at": [
+                0.5,
+                0.5
+            ],
+            "grab": false,
+            "interactions": {
+                "use_item_id": "",
+                "input": ""
+            },
+            "read": "",
+            "rationale": "Moving forward will allow me to explore the room further and potentially find useful tools or clues. Looking at the center of the room may reveal more details about the objects present."
+        },
+        "bag": "",
+        "used_history": 1,
+        "grab_tp": 0
+    },
+    {
+        "step": 1,
+        "desc": "Successfully moved. You did not interact with any objects in the last step.\n===\nThe items in your bag usable include:\nNothing in your bag.\n===\nPlease determine the next action(s) that could help you observe the room or obtain useful tools or clues.\nIf you find yourself stuck in a corner, try turn around by passing rotate_right.\nYou need to return data in the following format of JSON_string to interact with the scene and don't say anything else: \n{\n    \"move_forward\": float,\n    \"rotate_right\": float,\n    \"rotate_down\": float,\n    \"jump\": bool,\n    \"look_at\": list[x: float, y: float],\n    \"grab\": bool,\n    \"interactions\": {\n        \"use_item_id\": str,\n        \"input\": str\n    },\n    \"read\": str,\n    \"rationale\": str\n}\n",
+        "save_path": "./game_cache\\level1-1\\gpt-4o-mini_t_4\\1.png",
+        "response": {
+            "move_forward": 0.0,
+            "rotate_right": 90.0,
+            "rotate_down": 0.0,
+            "jump": false,
+            "look_at": [
+                0.5,
+                0.5
+            ],
+            "grab": false,
+            "interactions": {
+                "use_item_id": "",
+                "input": ""
+            },
+            "read": "",
+            "rationale": "Rotating right will allow me to see more of the room and potentially discover useful objects or clues that I couldn't see before."
+        },
+        "bag": "",
+        "used_history": 2,
+        "grab_tp": 0
+    },
+    {
+        "step": 2,
+        "desc": "Successfully moved. You did not interact with any objects in the last step.\n===\nThe items in your bag usable include:\nNothing in your bag.\n===\nPlease determine the next action(s) that could help you observe the room or obtain useful tools or clues.\nIf you find yourself stuck in a corner, try turn around by passing rotate_right.\nYou need to return data in the following format of JSON_string to interact with the scene and don't say anything else: \n{\n    \"move_forward\": float,\n    \"rotate_right\": float,\n    \"rotate_down\": float,\n    \"jump\": bool,\n    \"look_at\": list[x: float, y: float],\n    \"grab\": bool,\n    \"interactions\": {\n        \"use_item_id\": str,\n        \"input\": str\n    },\n    \"read\": str,\n    \"rationale\": str\n}\n",
+        "save_path": "./game_cache\\level1-1\\gpt-4o-mini_t_4\\2.png",
+        "response": {
+            "move_forward": 1.0,
+            "rotate_right": 0.0,
+            "rotate_down": 0.0,
+            "jump": false,
+            "look_at": [
+                0.5,
+                0.5
+            ],
+            "grab": false,
+            "interactions": {
+                "use_item_id": "",
+                "input": ""
+            },
+            "read": "",
+            "rationale": "Moving forward will bring me closer to the door and the object next to it, allowing me to inspect them for any clues or tools that may help in my escape."
+        },
+        "bag": "",
+        "used_history": 3,
+        "grab_tp": 0
+    },
+    {
+        "step": 3,
+        "desc": "Successfully moved. You did not interact with any objects in the last step.\n===\nThe items in your bag usable include:\nNothing in your bag.\n===\nPlease determine the next action(s) that could help you observe the room or obtain useful tools or clues.\nIf you find yourself stuck in a corner, try turn around by passing rotate_right.\nYou need to return data in the following format of JSON_string to interact with the scene and don't say anything else: \n{\n    \"move_forward\": float,\n    \"rotate_right\": float,\n    \"rotate_down\": float,\n    \"jump\": bool,\n    \"look_at\": list[x: float, y: float],\n    \"grab\": bool,\n    \"interactions\": {\n        \"use_item_id\": str,\n        \"input\": str\n    },\n    \"read\": str,\n    \"rationale\": str\n}\n",
+        "save_path": "./game_cache\\level1-1\\gpt-4o-mini_t_4\\3.png",
+        "response": {
+            "move_forward": 0.0,
+            "rotate_right": 90.0,
+            "rotate_down": 0.0,
+            "jump": false,
+            "look_at": [
+                0.5,
+                0.5
+            ],
+            "grab": false,
+            "interactions": {
+                "use_item_id": "",
+                "input": ""
+            },
+            "read": "",
+            "rationale": "Rotating right will allow me to see the door and the object next to it more clearly, which may provide clues or tools for my escape."
+        },
+        "bag": "",
+        "used_history": 4,
+        "grab_tp": 0
+    }
+]
