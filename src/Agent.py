@@ -81,6 +81,10 @@ class AgentPlayer:
         self.history_type = history_type
         self.max_history = max_history
 
+        # Summary system
+        self.summary_size = (max_history if (history_type == "summary" and isinstance(max_history, int)) else 2)
+        self.summary = ""
+
         # for 'key' history type, when some steps are skipped, there will be a disconsistency between  
         # the current view and the last view sent to the agent
         self.show_tranist_prompt = True if history_type == "key" else False 
@@ -113,6 +117,76 @@ class AgentPlayer:
 
         self.img_str_pattern = r"data:image\/[a-zA-Z]+;base64,([A-Za-z0-9+/=]+)"
 
+    # Summary system text structure
+    def _sys_text(self, text):
+        if self.model.startswith('llama'):
+            return {"role": "user", "content": [{"type": "text", "text": text}]}
+        elif self.model.startswith('phi'):
+            return {"role": "user", "content": text}
+        else:
+            return {"role": "system", "content": [{"type": "text", "text": text}]}
+        
+    # Summary system prompt & response
+    def update_summary(self, observation_text: str, last_action_json: dict, bag_desc: str):
+        """
+        Merge the newest step into a compact rolling summary.
+        - observation_text: environment feedback (desc) returned after executing the action
+        - last_action_json: the JSON you sent to the env (already validated)
+        - bag_desc: current bag description string
+        """
+        try:
+            step_digest = (
+                "OBS:\n" + (observation_text or "None") +
+                "\nBAG:\n" + (bag_desc or "Nothing in your bag.") +
+                "\nACTION_JSON:\n" + json.dumps(last_action_json, ensure_ascii=False)
+            )
+
+            prompt = f"""
+            You are a memory compressor for a room-escape agent. Update the compact memory with the NEW step.
+            Keep only durable facts that matter for solving the room: inventory, discovered codes/notes, locks/padlock states,
+            open goals/TODOs, and notable objects/locations. Remove solved/irrelevant items. Deduplicate. Be concise.
+
+            Return STRICT JSON with keys:
+            - "inventory": [short strings]
+            - "codes": [short strings]                 # e.g. "sticky note: 2741", "drawer pin: 1234"
+            - "locks": [short strings]                 # e.g. "door locked", "box requires 4-digit code"
+            - "goals": [short strings, highest priority first]
+            - "notable": [short strings]               # e.g. "green bottle on counter", "note by door"
+
+            Current memory (may be empty):
+            {self.summary}
+
+            New step:
+            {step_digest}
+
+            Return ONLY the JSON.
+            """.strip()
+
+            if self.model.startswith('phi') or self.model.startswith('llama'):
+                messages = [{"role": "user", "content": prompt}]
+            else:
+                messages = [
+                    self._sys_text("You compress long-term state into terse JSON memory."),
+                    {"role": "user", "content": [{"type": "text", "text": prompt}]}
+                ]
+
+            completion = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=0,
+                max_tokens=256,
+            )
+            content = completion.choices[0].message.content.strip()
+
+            try:
+                data = json.loads(content)
+                self.summary = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+            except Exception:
+                self.summary = content[:2000]
+
+        except Exception as e:
+            logger.warning(f"Summary update failed: {e}")
+        
     def add_problem(self, problem, image_path=None):
         content = "" if self.model.startswith('phi') else []
         self.interactions.append({"role": "user", "content": content})
@@ -244,6 +318,30 @@ class AgentPlayer:
                 message = self.system_messages + self.key_interactions
         elif self.history_type == 'max':
             message = self.system_messages + self.interactions[-self.max_history * 2:]
+        elif self.history_type == 'summary':
+            message = list(self.system_messages)
+            if self.summary:
+                message.append(self._sys_text(f"Rolling summary (compact JSON): {self.summary}"))
+
+            collected = []
+            user_added = 0
+            assistants_needed = 1
+
+            for m in reversed(self.interactions):
+                role = m.get("role")
+                if role == "user":
+                    if user_added == 0:
+                        collected.append(m)
+                        user_added = 1
+                elif role == "assistant":
+                    if assistants_needed > 0:
+                        collected.append(m)
+                        assistants_needed -= 1
+
+                if user_added == 1 and assistants_needed == 0:
+                    break
+
+            message += list(reversed(collected))
         else:
             raise NotImplementedError   
         return message

@@ -522,6 +522,16 @@ class Game:
                 desc, save_path, obj_interact, obj_interact_fail = self.step(response)
                 desc = self.check_new_room_desc(desc, escaped_rooms, room_left_to_escape)
 
+                # Summary system call
+                try:
+                    self.agent.update_summary(
+                        observation_text=desc if desc else "No environment feedback.",
+                        last_action_json=response,
+                        bag_desc=self.base_game.bag_desc or "Nothing in your bag."
+                    )
+                except Exception as e:
+                    logger.warning(f"Summary update skipped: {e}")
+
                 if self.base_game.clear and room_left_to_escape > 1:
                     self.base_game.clear =False
                     room_left_to_escape -= 1
@@ -569,6 +579,16 @@ class Game:
 
                 desc, save_path, obj_interact, obj_interact_fail = self.step(response)
                 desc = self.check_new_room_desc(desc, escaped_rooms, room_left_to_escape)
+
+                # Summary system call
+                try:
+                    self.agent.update_summary(
+                        observation_text=desc if desc else "No environment feedback.",
+                        last_action_json=response,
+                        bag_desc=self.base_game.bag_desc or "Nothing in your bag."
+                    )
+                except Exception as e:
+                    logger.warning(f"Summary update skipped: {e}")
 
                 with open(os.path.join(self.record_save_path, "records.json"), "w", encoding="utf-8") as f:
                     json.dump(results, f, ensure_ascii=False, indent=4)
